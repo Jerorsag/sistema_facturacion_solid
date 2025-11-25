@@ -11,6 +11,8 @@ Este proyecto demuestra la aplicación práctica de los principios SOLID en el d
 - Cálculo de impuestos por categoría (Alimentos: 5%, Ropa: 19%, Electrónica: 25%)
 - Diseño extensible siguiendo principios SOLID
 - Inyección de dependencias por constructor
+- **Modo interactivo de consola** para probar el sistema en tiempo real
+- Modo demostración predefinido
 - Tests unitarios completos con JUnit 5 y Mockito
 - Documentación JavaDoc exhaustiva
 - Manejo de errores robusto
@@ -44,14 +46,41 @@ mvn clean package
 
 Después de empaquetar, ejecuta:
 
+**Modo Demostración** (por defecto):
 ```bash
 java -cp target/sistema-facturacion-solid-1.0-SNAPSHOT.jar com.facturacion.app.Main
 ```
 
-O directamente con Maven:
-
+**Modo Interactivo** (consola):
 ```bash
-mvn exec:java -Dexec.mainClass="com.facturacion.app.Main"
+java -cp target/sistema-facturacion-solid-1.0-SNAPSHOT.jar com.facturacion.app.Main --interactive
+```
+
+O usando la forma corta:
+```bash
+java -cp target/sistema-facturacion-solid-1.0-SNAPSHOT.jar com.facturacion.app.Main -i
+```
+
+#### Modo Interactivo
+
+El modo interactivo te permite:
+- Agregar productos de diferentes categorías (Alimentos, Ropa, Electrónica)
+- Ver resumen de productos agregados
+- Calcular subtotal, impuestos y total
+- Imprimir factura completa formateada
+- Limpiar factura y empezar de nuevo
+- Ver ayuda del sistema
+
+**Menú del modo interactivo:**
+```
+--- MENÚ PRINCIPAL ---
+1. Agregar producto a la factura
+2. Ver resumen de productos
+3. Calcular total
+4. Imprimir factura completa
+5. Limpiar factura (empezar de nuevo)
+6. Ayuda
+0. Salir
 ```
 
 ## Salida Esperada
@@ -129,7 +158,8 @@ sistema_facturacion_solid/
 │   │       └── com/
 │   │           └── facturacion/
 │   │               ├── app/
-│   │               │   └── Main.java
+│   │               │   ├── Main.java
+│   │               │   └── ConsolaInteractiva.java
 │   │               ├── model/
 │   │               │   ├── Producto.java
 │   │               │   ├── ProductoAlimento.java

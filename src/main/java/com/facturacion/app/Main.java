@@ -13,11 +13,17 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Clase principal que demuestra el funcionamiento del sistema de facturación.
+ * Clase principal que permite ejecutar el sistema en modo demostración o modo interactivo.
  * 
- * <p>Esta clase crea productos de diferentes categorías, configura reglas de impuestos
- * y genera una factura con el cálculo correspondiente, demostrando cómo el diseño
- * SOLID permite un sistema flexible y extensible.
+ * <p>Esta clase implementa el principio de <strong>Single Responsibility Principle (SRP)</strong>:
+ * Su única responsabilidad es iniciar la aplicación y delegar al modo correspondiente
+ * (demostración o interactivo).
+ * 
+ * <p>Uso:
+ * <ul>
+ *   <li>Sin argumentos o con "--demo": Ejecuta una demostración predefinida</li>
+ *   <li>Con "--interactive" o "-i": Inicia el modo interactivo de consola</li>
+ * </ul>
  * 
  * @author Sistema de Facturación SOLID
  * @version 1.0
@@ -25,12 +31,44 @@ import java.util.Map;
 public class Main {
     
     /**
-     * Método principal que ejecuta la demostración del sistema.
+     * Método principal que ejecuta el sistema según los argumentos proporcionados.
      * 
-     * @param args Argumentos de línea de comandos (no utilizados)
+     * @param args Argumentos de línea de comandos:
+     *             - Sin argumentos o "--demo": Modo demostración
+     *             - "--interactive" o "-i": Modo interactivo
      */
     public static void main(String[] args) {
+        // Determinar el modo de ejecución
+        boolean modoInteractivo = false;
+        
+        if (args.length > 0) {
+            String primerArg = args[0].toLowerCase();
+            modoInteractivo = primerArg.equals("--interactive") || 
+                            primerArg.equals("-i") ||
+                            primerArg.equals("--interactivo");
+        }
+        
+        if (modoInteractivo) {
+            // Modo interactivo
+            ConsolaInteractiva consola = new ConsolaInteractiva();
+            consola.iniciar();
+        } else {
+            // Modo demostración
+            ejecutarDemostracion();
+        }
+    }
+    
+    /**
+     * Ejecuta una demostración predefinida del sistema.
+     * 
+     * <p>Esta demostración crea productos de diferentes categorías, configura reglas de impuestos
+     * y genera una factura con el cálculo correspondiente, demostrando cómo el diseño
+     * SOLID permite un sistema flexible y extensible.
+     */
+    private static void ejecutarDemostracion() {
         System.out.println("=== Sistema de Facturación SOLID ===\n");
+        System.out.println("Modo: Demostración");
+        System.out.println("(Use --interactive o -i para modo interactivo)\n");
         
         // Crear productos de diferentes categorías
         // Esto demuestra LSP: todas las subclases pueden usarse como Producto
